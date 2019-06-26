@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+		<menuitem title="Partners" name="menu-partners" icon-background="green" />
+
+		<menuitem name="menu-partner-all" parent="menu-partners" title="All Partner"
+				action="partner.all" />
+		<action-view name="partner.all" title="All Partners"
+				model="com.axelor.partner.db.Partner">
+				<view type="cards" name="partner-card" />
+				<view type="form" name="partner-form" />
+				<context name="json-enhance" expr="true"/>
+		</action-view>
+
+		<menuitem name="menu-catagory-all" parent="menu-partners" title="All Catagory"
+				action="catagory.all" />
+		<action-view name="catagory.all" title="All Catagory"
+				model="com.axelor.partner.db.Catagory">
+				<view type="grid" name="catagory-grid" />
+		</action-view>
+
+		<menuitem name="menu-company-all" parent="menu-partners" title="All Company"
+				action="company.all" />
+		<action-view name="company.all" title="All Company"
+				model="com.axelor.partner.db.Company">
+				<view type="grid" name="company-grid" />
+				<view type="form" name="company-form"/>
+		</action-view>
+
+</object-views>
+  

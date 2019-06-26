@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<cards name="partner-card" model="com.axelor.partner.db.Partner"
+		title="Partners">
+		<field name="fullName" />
+		<field name="email" />
+		<field name="address" />
+		<field name="hasImage" />
+		<template><![CDATA[
+      <div class="span4 card-image">
+        <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
+        <img ng-if="!hasImage" src="img/user.png">
+        
+      </div>
+      <div class="span8">
+        <address>
+        <strong>{{fullName}}</strong>
+          <strong>{{address.street}} {{address.area}}</strong><br>
+          {{address.city}}<span ng-if="address.state">, {{address.state}}</span>,<br><span ng-if="address.zip"> - {{address.zip}}</span><br>
+          <abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
+        </address>
+      </div>
+    ]]></template>
+	</cards>
+
+	<form model="com.axelor.partner.db.Partner" title="Partner"
+		name="partner-form">
+		<panel sidebar="true" colSpan="4" title="Photo">
+			<field name="image" showTitle="false" colSpan="12" />
+		</panel>
+
+		<panel title="Personal">
+			<field name="fullName" title="Name" readonly="false"
+				colSpan="12">
+				<editor x-show-titles="false">
+					<field name="firstName" colSpan="5" />
+					<field name="lastName" colSpan="5" />
+				</editor>
+			</field>
+		</panel>
+
+		<panel title="Contacts">
+			<field name="email" canSelect="false">
+				<editor layout="table"><!-- x-show-titles="false" -->
+					<field name="emailId" />
+				</editor>
+			</field>
+			<field name="addresses" colSpan="12" css="address-list">
+				<viewer><![CDATA[ <address> {{record.street}} {{record.area}}<br> {{record.city}}, {{record.state}} 
+										- {{record.zip}}<br> {{record.country.name}} </address> ]]> </viewer>
+				<editor x-show-titles="false">
+					<field name="street" colSpan="12" />
+					<field name="area" colSpan="12" />
+					<field name="city" colSpan="12" />
+					<field name="state" colSpan="6" />
+					<field name="zip" colSpan="6" />
+				</editor>
+			</field>
+		</panel>
+		<panel title="Companies">
+			<field name="company" widget="TagSelect" form-view="grid-view"
+				colSpan="12">
+
+			</field>
+		</panel>
+	</form>
+</object-views>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models
+	xmlns="http://axelor.com/xml/ns/domain-models"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
+
+	<module name="partner" package="com.axelor.partner.db" />
+
+	<entity name="Partner" sequential="true" cachable="true"
+		repository="abstract">
+		<string name="firstName" required="true" initParam="true" />
+		<string name="lastName" required="true" initParam="true" />
+		<binary name="image" image="true" />
+		<string name="fullName" namecolumn="true"
+			search="firstName,lastName"><![CDATA[
+				    if (firstName == null && lastName == null)
+				      return null;
+				    return firstName + " " + lastName;
+    			]]>
+		</string>
+		<one-to-many name="addresses" ref="Address" mappedBy="partner" />
+		<one-to-one name="email" ref="Email"/>
+		<many-to-many name="company" ref="Company" />
+	</entity>
+</domain-models>
+  

@@ -1,0 +1,3 @@
+rootProject.name = 'training-demo'
+
+include "modules:training-demo-partner"
