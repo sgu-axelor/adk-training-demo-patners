@@ -6,7 +6,7 @@
 		<menuitem title="Partners" name="menu-partners" icon-background="green" />
 
 		<menuitem name="menu-partner-all" parent="menu-partners" title="All Partner"
-				action="partner.all" />
+				action="partner.all" tag-style="info" tag="information"/>
 		<action-view name="partner.all" title="All Partners"
 				model="com.axelor.partner.db.Partner">
 				<view type="cards" name="partner-card" />
@@ -15,14 +15,14 @@
 		</action-view>
 
 		<menuitem name="menu-catagory-all" parent="menu-partners" title="All Catagory"
-				action="catagory.all" />
+				action="catagory.all" tag-style="warning" tag="warning"/>
 		<action-view name="catagory.all" title="All Catagory"
 				model="com.axelor.partner.db.Catagory">
 				<view type="grid" name="catagory-grid" />
 		</action-view>
 
 		<menuitem name="menu-company-all" parent="menu-partners" title="All Company"
-				action="company.all" />
+				action="company.all" tag-style="success" tag="Alert"/>
 		<action-view name="company.all" title="All Company"
 				model="com.axelor.partner.db.Company">
 				<view type="grid" name="company-grid" />

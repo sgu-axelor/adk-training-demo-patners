@@ -13,12 +13,13 @@
       <div class="span4 card-image">
         <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
         <img ng-if="!hasImage" src="img/user.png">
-        <strong>{{fullName}}</strong>
+        
       </div>
       <div class="span8">
         <address>
+        <strong>{{fullName}}</strong>
           <strong>{{address.street}} {{address.area}}</strong><br>
-          {{address.city}}<span ng-if="address.state">, {{address.state}}</span><span ng-if="address.zip"> - {{address.zip}}</span><br>
+          {{address.city}}<span ng-if="address.state">, {{address.state}}</span>,<br><span ng-if="address.zip"> - {{address.zip}}</span><br>
           <abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
         </address>
       </div>
@@ -26,7 +27,7 @@
 	</cards>
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
-		name="partner-form">
+		name="partner-form" onSave="action-group-onsave" onNew="default-fname">
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
@@ -43,11 +44,11 @@
 
 		<panel title="Contacts">
 			<field name="email" canSelect="false">
-				<editor layout="table" ><!-- x-show-titles="false" -->
+				<editor layout="table"><!-- x-show-titles="false" -->
 					<field name="emailId" />
 				</editor>
 			</field>
-			<field name="addresses" colSpan="12" css="address-list" >
+			<field name="addresses" colSpan="12" css="address-list">
 				<viewer><![CDATA[ <address> {{record.street}} {{record.area}}<br> {{record.city}}, {{record.state}} 
 										- {{record.zip}}<br> {{record.country.name}} </address> ]]> </viewer>
 				<editor x-show-titles="false">
@@ -60,11 +61,28 @@
 			</field>
 		</panel>
 		<panel title="Companies">
-			<field name="company" colSpan="12" >
-				<editor x-show-titles="false">
-					<field name="name" widget="TagSelect" form-view="grid-view"/>
-				</editor>
+			<field name="company" widget="TagSelect" form-view="grid-view"
+				colSpan="12">
+
 			</field>
 		</panel>
 	</form>
+	
+	<action-record name="default-order-record" model="com.axelor.partner.db.Partner">
+		<field name="firstName" expr="aaaa"/>
+	</action-record>
+	
+	<action-group name="action-group-onsave">
+		<action name="action-attr-lname-readonly"/>
+		<action name="default-email"/>
+		<action name="" />
+	</action-group>
+	
+	<action-method name="default-email">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="setDefaultEmail"/>
+	</action-method>
+		
+	<action-attrs name="action-attr-lname-readonly">
+		<attribute for="lastName" name="readonly" expr="true"/>
+	</action-attrs>
 </object-views>

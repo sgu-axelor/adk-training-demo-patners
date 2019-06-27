@@ -14,8 +14,6 @@ public class PartnerRepository extends AbstractPartnerRepository{
     try {
       Long id = (Long) json.get("id");
       Partner partner = find(id);
-      System.err.println(partner.getAddresses().get(0));
-      //System.err.println(partner.getEmail().getEmailId());
       json.put("address", partner.getAddresses().get(0));
       json.put("hasImage", partner.getImage() != null);
     } catch (Exception e) {

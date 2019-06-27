@@ -4,13 +4,8 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
 	<grid model="com.axelor.partner.db.Company" title="Companies"
-		name="company-grid" editable="true">
+		name="company-grid" editable="true" canDelete="true" canEdit="true">
 		<field name="name"></field>
 	</grid>
-<!-- 	<form model="com.axelor.partner.db.Company" title="Companies"
-		name="company-form">
-		<panel title="Company and its patnership nature">
-			<field name="name"></field>
-		</panel>
-	</form> -->
+
 </object-views>

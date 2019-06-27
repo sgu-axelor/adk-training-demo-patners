@@ -1,5 +1,6 @@
 package com.axelor.partner.db;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -65,6 +66,10 @@ public class Partner extends AuditableModel {
 	@VirtualColumn
 	@Access(AccessType.PROPERTY)
 	private String fullName;
+
+	@Widget(title = "Partnered On", help = "Date on which Patner is registered")
+	@NotNull
+	private LocalDate startdate;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> addresses;
@@ -140,6 +145,19 @@ public class Partner extends AuditableModel {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	/**
+	 * Date on which Patner is registered
+	 *
+	 * @return the property value
+	 */
+	public LocalDate getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(LocalDate startdate) {
+		this.startdate = startdate;
 	}
 
 	public List<Address> getAddresses() {
@@ -281,6 +299,7 @@ public class Partner extends AuditableModel {
 			.add("id", getId())
 			.add("firstName", getFirstName())
 			.add("lastName", getLastName())
+			.add("startdate", getStartdate())
 			.omitNullValues()
 			.toString();
 	}
