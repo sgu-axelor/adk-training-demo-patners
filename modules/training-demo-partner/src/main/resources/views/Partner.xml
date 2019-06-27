@@ -78,7 +78,7 @@
 	</action-record>
 
 	<action-group name="action-group-onsave">
-		<action name="" />
+		<action name="action-show-patner" />
 		<action name="validate-startdate" />
 		<action name="default-email" />
 	</action-group>
@@ -86,6 +86,10 @@
 	<action-method name="default-email">
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="setDefaultEmail" />
+	</action-method>
+
+	<action-method name="action-show-patner">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="show" />
 	</action-method>
 
 	<action-attrs name="action-attr-lname-readonly-false">

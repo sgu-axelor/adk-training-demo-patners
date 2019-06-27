@@ -1,10 +1,9 @@
 package com.axelor.partner.db.repo;
 
 import java.util.Map;
-
 import com.axelor.partner.db.Partner;
 
-public class PartnerRepository extends AbstractPartnerRepository{
+public class PartnerRepository extends AbstractPartnerRepository {
 
   @Override
   public Map<String, Object> populate(Map<String, Object> json, Map<String, Object> context) {
@@ -21,5 +20,5 @@ public class PartnerRepository extends AbstractPartnerRepository{
 
     return json;
   }
-  
+
 }

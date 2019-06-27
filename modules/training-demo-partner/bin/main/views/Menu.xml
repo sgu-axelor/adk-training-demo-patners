@@ -29,9 +29,9 @@
 				<view type="form" name="company-form"/>
 		</action-view>
 		
-		<menuitem title="Everthing" name="menu-everything-kanban" parent="menu-partners" action="everything.show" icon-background="purple"
+<!-- 		<menuitem title="Everthing" name="menu-everything-kanban" parent="menu-partners" action="everything.show" icon-background="purple"
 		tag-count="true"/>
-		<action-view name="everything.show" title="Kanban"></action-view> 
+		<action-view name="everything.show" title="Kanban"></action-view> --> 
 
 </object-views>
   

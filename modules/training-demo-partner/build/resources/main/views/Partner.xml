@@ -17,9 +17,10 @@
       </div>
       <div class="span8">
         <address>
-        <strong>{{fullName}}</strong>
-          <strong>{{address.street}} {{address.area}}</strong><br>
-          {{address.city}}<span ng-if="address.state">, {{address.state}}</span>,<br><span ng-if="address.zip"> - {{address.zip}}</span><br>
+        <strong>{{fullName}}</strong><br>
+			{{address.street}} {{address.area}}<br>
+          {{address.city}}<span ng-if="address.state">, {{address.state}}</span><br>
+          <span ng-if="address.zip"> - {{address.zip}}</span><br>
           <abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
         </address>
       </div>
@@ -27,7 +28,8 @@
 	</cards>
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
-		name="partner-form" onSave="action-group-onsave" onNew="default-fname">
+		name="partner-form" onSave="action-group-onsave"
+		onNew="default-fname,action-attr-lname-readonly-false">
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
@@ -37,7 +39,7 @@
 				colSpan="12">
 				<editor x-show-titles="false">
 					<field name="firstName" colSpan="5" />
-					<field name="lastName" colSpan="5" />
+					<field name="lastName" colSpan="5" readonly="true" />
 				</editor>
 			</field>
 		</panel>
@@ -61,28 +63,41 @@
 			</field>
 		</panel>
 		<panel title="Companies">
-			<field name="company" widget="TagSelect" form-view="grid-view"
-				colSpan="12">
-
+			<field name="company" widget="TagSelect"
+				form-view="company-grid" colSpan="12">
 			</field>
 		</panel>
+		<panel sidebar="true">
+			<field name="startdate"></field>
+		</panel>
 	</form>
-	
-	<action-record name="default-order-record" model="com.axelor.partner.db.Partner">
-		<field name="firstName" expr="aaaa"/>
+
+	<action-record name="default-fname"
+		model="com.axelor.partner.db.Partner">
+		<field name="firstName" expr="aaaa" />
 	</action-record>
-	
+
 	<action-group name="action-group-onsave">
-		<action name="action-attr-lname-readonly"/>
-		<action name="default-email"/>
-		<action name="" />
+		<action name="action-show-patner" />
+		<action name="validate-startdate" />
+		<action name="default-email" />
 	</action-group>
-	
+
 	<action-method name="default-email">
-		<call class="com.axelor.partner.web.DefaultValueClass" method="setDefaultEmail"/>
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="setDefaultEmail" />
 	</action-method>
-		
-	<action-attrs name="action-attr-lname-readonly">
-		<attribute for="lastName" name="readonly" expr="true"/>
+
+	<action-method name="action-show-patner">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="show" />
+	</action-method>
+
+	<action-attrs name="action-attr-lname-readonly-false">
+		<attribute for="lastName" name="readonly" expr="false" />
 	</action-attrs>
+
+	<action-validate name="validate-startdate">
+		<error message="Start date can not be in future."
+			if="startdate &gt; __date__" />
+	</action-validate>
 </object-views>
