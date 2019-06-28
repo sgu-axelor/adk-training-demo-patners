@@ -68,7 +68,7 @@
 			</field>
 		</panel>
 		<panel sidebar="true">
-			<field name="startdate"></field>
+			<field name="startdate" onChange="validate-startdate"></field>
 		</panel>
 	</form>
 
@@ -78,18 +78,32 @@
 	</action-record>
 
 	<action-group name="action-group-onsave">
-		<action name="action-show-patner" />
-		<action name="validate-startdate" />
+		<action name="alert-valid-action" />
+		<action name="action-show-patner-guice" />
 		<action name="default-email" />
 	</action-group>
 
+	<action-validate name="alert-valid-action">
+		<alert
+			message="Company is not associated. Are you sure to register?"
+			if="!company " />
+		<alert
+			message="Image in not uploaded. Do you still wanna proceed?"
+			if="!image" />
+		<alert
+			message="Email is not set. Default email will be automatically be assigned"
+			if="!email" />
+		<alert
+			message="No adddress is specified. Do you want to proceed?" />
+	</action-validate>
 	<action-method name="default-email">
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="setDefaultEmail" />
 	</action-method>
 
-	<action-method name="action-show-patner">
-		<call class="com.axelor.partner.web.DefaultValueClass" method="show" />
+	<action-method name="action-show-patner-guice">
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="show" />
 	</action-method>
 
 	<action-attrs name="action-attr-lname-readonly-false">
@@ -98,6 +112,14 @@
 
 	<action-validate name="validate-startdate">
 		<error message="Start date can not be in future."
-			if="startdate &gt; __date__" />
+			if="startdate &gt; __date__" action="set-default-date" />
 	</action-validate>
+
+	<action-attrs name="set-default-date">
+		<attribute name="value" for="startdate"
+			expr="eval: __date__" />
+	</action-attrs>
+	<!-- <action-script name="set-default-date" model="com.axelor.partner.db.Partner"> 
+		<script language="js"> <![CDATA[[ var req = $request; var res = $response; 
+		res.setValue('startdate', __date__); ]]> </script> </action-script> -->
 </object-views>
