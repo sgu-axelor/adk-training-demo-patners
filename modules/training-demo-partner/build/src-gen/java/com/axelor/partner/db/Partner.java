@@ -56,16 +56,19 @@ public class Partner extends AuditableModel {
 	@NotNull
 	private String lastName;
 
-	@Widget(image = true)
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] image;
+	@Widget(selection = "agreementPeriod-selection-list")
+	private Integer agreementPeriod = 0;
 
 	@Widget(search = { "firstName", "lastName" })
 	@NameColumn
 	@VirtualColumn
 	@Access(AccessType.PROPERTY)
 	private String fullName;
+
+	@Widget(image = true)
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] image;
 
 	@Widget(title = "Partnered On", help = "Date on which Patner is registered")
 	@NotNull
@@ -79,6 +82,8 @@ public class Partner extends AuditableModel {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Company> company;
+
+	private Integer companyassociations = 0;
 
 	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
@@ -119,12 +124,12 @@ public class Partner extends AuditableModel {
 		this.lastName = lastName;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public Integer getAgreementPeriod() {
+		return agreementPeriod == null ? 0 : agreementPeriod;
 	}
 
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setAgreementPeriod(Integer agreementPeriod) {
+		this.agreementPeriod = agreementPeriod;
 	}
 
 	public String getFullName() {
@@ -145,6 +150,14 @@ public class Partner extends AuditableModel {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	/**
@@ -266,6 +279,14 @@ public class Partner extends AuditableModel {
 		}
 	}
 
+	public Integer getCompanyassociations() {
+		return companyassociations == null ? 0 : companyassociations;
+	}
+
+	public void setCompanyassociations(Integer companyassociations) {
+		this.companyassociations = companyassociations;
+	}
+
 	public String getAttrs() {
 		return attrs;
 	}
@@ -299,7 +320,9 @@ public class Partner extends AuditableModel {
 			.add("id", getId())
 			.add("firstName", getFirstName())
 			.add("lastName", getLastName())
+			.add("agreementPeriod", getAgreementPeriod())
 			.add("startdate", getStartdate())
+			.add("companyassociations", getCompanyassociations())
 			.omitNullValues()
 			.toString();
 	}

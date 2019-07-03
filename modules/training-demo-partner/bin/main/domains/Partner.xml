@@ -10,7 +10,7 @@
 		repository="abstract">
 		<string name="firstName" required="true" initParam="true" />
 		<string name="lastName" required="true" initParam="true" />
-		<binary name="image" image="true" />
+		<integer name="agreementPeriod" selection="agreementPeriod-selection-list"></integer>
 		<string name="fullName" namecolumn="true"
 			search="firstName,lastName"><![CDATA[
 				    if (firstName == null && lastName == null)
@@ -19,10 +19,14 @@
     			]]>
 		</string>
 		
+		<binary name="image" image="true" />
 		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" ></date>
+		
 		<one-to-many name="addresses" ref="Address" mappedBy="partner" />
 		<one-to-one name="email" ref="Email"/>
 		<many-to-many name="company" ref="Company" />
+		
+		<integer name="companyassociations"></integer>
 	</entity>
 </domain-models>
   

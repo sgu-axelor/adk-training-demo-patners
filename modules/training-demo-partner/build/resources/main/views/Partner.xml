@@ -13,19 +13,47 @@
       <div class="span4 card-image">
         <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
         <img ng-if="!hasImage" src="img/user.png">
-        
+        <strong>{{fullName}}</strong><br>
       </div>
       <div class="span8">
         <address>
-        <strong>{{fullName}}</strong><br>
 			{{address.street}} {{address.area}}<br>
-          {{address.city}}<span ng-if="address.state">, {{address.state}}</span><br>
-          <span ng-if="address.zip"> - {{address.zip}}</span><br>
-          <abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
+        	{{address.city}}<span ng-if="address.state">, {{address.state}}</span><br>
+        	<span ng-if="address.zip">{{address.zip}}<br></span>
+        	<abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
         </address>
       </div>
     ]]></template>
 	</cards>
+
+	<kanban name="partner-kanban" sequenceBy="companyassociations"
+		model="com.axelor.partner.db.Partner" columnBy="agreementPeriod"
+		title="Partners" limit="5">
+		<field name="fullName" />
+		<field name="hasImage" />
+		<field name="startdate" />
+		<field name="seeCompany" />
+		<hilite color="success" if="seeCompany>=5" />
+		<hilite color="danger" if="seeCompany==0" />
+		<hilite color="danger" if="seeCompany>2" />
+		<hilite color="info" if="seeCompany>=1" />
+
+		<template><![CDATA[
+			<h4>{{fullName}}</h4>
+    		{{seeCompany}}
+    		<img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
+        	<img ng-if="!hasImage" src="img/user.png">
+    		<div class="card-footer">
+      			<i class='fa fa-clock-o'></i> <span>{{startdate}}</span>
+    		</div>
+		]]></template>
+	</kanban>
+
+	<selection name="agreementPeriod-selection-list">
+		<option value="5">5 Years</option>
+		<option value="10">10 Years</option>
+		<option value="15">15 Years</option>
+	</selection>
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
 		name="partner-form" onSave="action-group-onsave"
@@ -68,7 +96,11 @@
 			</field>
 		</panel>
 		<panel sidebar="true">
-			<field name="startdate"></field>
+			<field name="agreementPeriod"
+				selection="agreementPeriod-selection-list"></field>
+		</panel>
+		<panel sidebar="true">
+			<field name="startdate" onChange="validate-startdate"></field>
 		</panel>
 	</form>
 
@@ -78,18 +110,38 @@
 	</action-record>
 
 	<action-group name="action-group-onsave">
-		<action name="action-show-patner" />
-		<action name="validate-startdate" />
+		<action name="alert-valid-action" />
+		<action name="action-show-patner-guice" />
 		<action name="default-email" />
+		<action name="action-setcompanyassociations" />
 	</action-group>
+
+	<action-validate name="alert-valid-action">
+		<alert
+			message="Company is not associated. Are you sure to register?"
+			if="company.size() == 0" />
+		<alert
+			message="Image in not uploaded. Do you still wanna proceed?"
+			if="!image" />
+		<!-- <alert message="Email is not set. Default email will be automatically 
+			be assigned" if="!email" /> -->
+		<!-- <alert message="No adddress is specified. Do you want to proceed?" 
+			if="!addresses"/> -->
+	</action-validate>
+
+	<action-method name="action-setcompanyassociations">
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="setCompanyAssociationsCount" />
+	</action-method>
 
 	<action-method name="default-email">
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="setDefaultEmail" />
 	</action-method>
 
-	<action-method name="action-show-patner">
-		<call class="com.axelor.partner.web.DefaultValueClass" method="show" />
+	<action-method name="action-show-patner-guice">
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="show" />
 	</action-method>
 
 	<action-attrs name="action-attr-lname-readonly-false">
@@ -98,6 +150,14 @@
 
 	<action-validate name="validate-startdate">
 		<error message="Start date can not be in future."
-			if="startdate &gt; __date__" />
+			if="startdate &gt; __date__" action="set-default-date" />
 	</action-validate>
+
+	<action-attrs name="set-default-date">
+		<attribute name="value" for="startdate"
+			expr="eval: __date__" />
+	</action-attrs>
+	<!-- <action-script name="set-default-date" model="com.axelor.partner.db.Partner"> 
+		<script language="js"> <![CDATA[[ var req = $request; var res = $response; 
+		res.setValue('startdate', __date__); ]]> </script> </action-script> -->
 </object-views>

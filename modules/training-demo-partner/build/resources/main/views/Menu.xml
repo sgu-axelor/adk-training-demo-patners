@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-		<menuitem title="Partners" name="menu-partners" icon-background="green" />
+	<menuitem title="Partners" name="menu-partners"
+		icon-background="green" />
 
-		<menuitem name="menu-partner-all" parent="menu-partners" title="All Partner"
-				action="partner.all" tag-style="info" tag="information"/>
-		<action-view name="partner.all" title="All Partners"
-				model="com.axelor.partner.db.Partner">
-				<view type="cards" name="partner-card" />
-				<view type="form" name="partner-form" />
-				<context name="json-enhance" expr="true"/>
-		</action-view>
+	<menuitem name="menu-partner-all" parent="menu-partners"
+		title="All Partner" action="partner.all" tag-style="info"
+		tag="information" />
+	<action-view name="partner.all" title="All Partners"
+		model="com.axelor.partner.db.Partner">
+		<view type="cards" name="partner-card" />
+		<view type="form" name="partner-form" />
+		<view type="kanban" name="partner-kanban"/>
+		<context name="json-enhance" expr="true" />
+	</action-view>
 
-		<menuitem name="menu-catagory-all" parent="menu-partners" title="All Catagory"
-				action="catagory.all" tag-style="warning" tag="warning"/>
-		<action-view name="catagory.all" title="All Catagory"
-				model="com.axelor.partner.db.Catagory">
-				<view type="grid" name="catagory-grid" />
-		</action-view>
+	<menuitem name="menu-catagory-all" parent="menu-partners"
+		title="All Catagory" action="catagory.all" tag-style="warning"
+		tag="warning" />
+	<action-view name="catagory.all" title="All Catagory"
+		model="com.axelor.partner.db.Catagory">
+		<view type="grid" name="catagory-grid" />
+	</action-view>
 
-		<menuitem name="menu-company-all" parent="menu-partners" title="All Company"
-				action="company.all" tag-style="success" tag="Alert"/>
-		<action-view name="company.all" title="All Company"
-				model="com.axelor.partner.db.Company">
-				<view type="grid" name="company-grid" />
-				<view type="form" name="company-form"/>
-		</action-view>
-		
-		<menuitem title="Everthing" name="menu-everything-kanban" parent="menu-partners" action="everything.show" icon-background="purple"
-		tag-count="true"/>
-		<action-view name="everything.show" title="Kanban"></action-view> 
+	<menuitem name="menu-company-all" parent="menu-partners"
+		title="All Company" action="company.all" tag-style="success"
+		tag="Alert" />
+	<action-view name="company.all" title="All Company"
+		model="com.axelor.partner.db.Company">
+		<view type="grid" name="company-grid" />
+		<view type="form" name="company-form" />
+	</action-view>
+
+	<menuitem name="menu-everything-kanban" parent="menu-partners"
+		title="Everything" action="everything.show" icon-background="purple" />
+	<action-view name="everything.show" title="Everything">
+		<view type="kanban" name="kanban-view" />
+		<view type="form" name="partner-form"/>
+	</action-view>
 
 </object-views>
   

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<partners xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<partner firstName="Sajal" lastName="Gupta">
+		<email>sajalguptafzd@gmail.com</email>
+		<addresses>
+			<address>
+				<street>279, RP</street>
+				<area>Jain Nagar</area>
+				<city>Fzd</city>
+				<state>U.P</state>
+				<country>India</country>
+			</address>
+			<address>
+				<street>18, SRC</street>
+				<area>balkeshawr</area>
+				<city>Agra</city>
+				<state>U.P</state>
+				<country>India</country>
+			</address>
+		</addresses>
+		<company>
+			<company name="ABCAssociations" />
+			<company name="InfoObject" />
+			<company name="HexaView" />
+			<company name="AxelorTechnologies" />
+		</company>
+		<agreementPeriod>10</agreementPeriod>
+		<startdate>2019-05-20</startdate>
+	</partner>
+	<partner firstName="Shivank" lastName="Gupta">
+		<email>guptashivank@gmail.com</email>
+		<addresses>
+			<address>
+				<street>15,sec72</street>
+				<area>noida</area>
+				<city>Noida</city>
+				<state>U.P</state>
+				<country>India</country>
+			</address>
+		</addresses>
+		<company>
+			<company name="InfoObject" />
+			<company name="HexaView" />
+			<company name="AxelorTechnologies" />
+			<company name="XyzCompany" />
+		</company>
+		<agreementPeriod>15</agreementPeriod>
+		<startdate>2017-01-19</startdate>
+	</partner>
+	<partner firstName="Rishab" lastName="Gupta">
+		<email>guptashivank@gmail.com</email>
+		<addresses>
+			<address>
+				<street>street</street>
+				<area>area</area>
+				<city>Noida</city>
+				<state>U.P</state>
+				<country>India</country>
+			</address>
+		</addresses>
+		<company>
+			<company name="InfoObject" />
+			<company name="HexaView" />
+			<company name="AxelorTechnologies" />
+			<company name="XyzCompany" />
+		</company>
+		<agreementPeriod>15</agreementPeriod>
+		<startdate>2017-01-01</startdate>
+	</partner>
+
+</partners>

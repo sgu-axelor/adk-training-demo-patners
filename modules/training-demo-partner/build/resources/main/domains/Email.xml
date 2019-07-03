@@ -7,7 +7,7 @@
 	<module name="partner" package="com.axelor.partner.db" />
 
 	<entity name="Email" cachable="true">
-		<one-to-one ref="Partner" name="partner" />
+		<one-to-one ref="Partner" name="partner"/>
 		
 		<string name="emailId" required="true" unique="true"
 			namecolumn="true" />
