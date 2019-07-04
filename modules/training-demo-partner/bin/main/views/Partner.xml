@@ -73,7 +73,7 @@
 		</panel>
 
 		<panel title="Contacts">
-			<field name="email" canSelect="false" >
+			<field name="email" canSelect="false" domain="self.email=email">
 				<editor layout="table"><!-- x-show-titles="false" -->
 					<field name="emailId" />
 				</editor>

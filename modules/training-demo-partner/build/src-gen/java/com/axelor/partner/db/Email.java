@@ -44,17 +44,16 @@ public class Email extends AuditableModel {
 	@Column(unique = true)
 	private String emailId;
 
-	public Email(String emailId) {
-    super();
-    this.emailId = emailId;
-  }
-
-  @Widget(title = "Attributes")
+	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
 	@Type(type = "json")
 	private String attrs;
 
 	public Email() {
+	}
+
+	public Email(String emailId) {
+		this.emailId = emailId;
 	}
 
 	@Override

@@ -6,7 +6,7 @@
 	<cards name="partner-card" model="com.axelor.partner.db.Partner"
 		title="Partners">
 		<field name="fullName" />
-		<field name="email" />
+		<field name="emailAdd" />
 		<field name="address" />
 		<field name="hasImage" />
 		<template><![CDATA[
@@ -20,7 +20,7 @@
 			{{address.street}} {{address.area}}<br>
         	{{address.city}}<span ng-if="address.state">, {{address.state}}</span><br>
         	<span ng-if="address.zip">{{address.zip}}<br></span>
-        	<abbr ng-if="email" title="Email">E:</abbr> {{email.emailId}}<br>
+        	<strong><abbr ng-if="emailAdd" title="Email">E:</abbr> {{emailAdd}}<br></strong>
         </address>
       </div>
     ]]></template>
@@ -57,7 +57,7 @@
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
 		name="partner-form" onSave="action-group-onsave"
-		onNew="default-fname,action-attr-lname-readonly-false">
+		onNew="default-fname,action-attr-lname-readonly-false" >
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
@@ -73,7 +73,7 @@
 		</panel>
 
 		<panel title="Contacts">
-			<field name="email" canSelect="false">
+			<field name="email" canSelect="false" domain="self.email=email">
 				<editor layout="table"><!-- x-show-titles="false" -->
 					<field name="emailId" />
 				</editor>

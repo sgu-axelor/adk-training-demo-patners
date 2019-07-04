@@ -9,7 +9,7 @@
 	<entity name="Email" cachable="true">
 		<one-to-one ref="Partner" name="partner"/>
 		
-		<string name="emailId" required="true" unique="true"
+		<string name="emailId" required="true" unique="true" initParam="true"
 			namecolumn="true" />
 	</entity>
 
