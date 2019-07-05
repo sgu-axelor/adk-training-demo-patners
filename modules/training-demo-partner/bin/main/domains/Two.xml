@@ -7,8 +7,9 @@
 	<module name="partner" package="com.axelor.partner.db" />
 
 	<entity name="Two" cachable="true">
-		<string name="nametwo" required="true" unique="true"
-			namecolumn="true" />
-		<one-to-many ref="One" name="one" mappedBy="two" />
+		<string name="fullName" required="true" unique="true" />
+		<integer name="minPeriod" required="true" selection="selection-period"/>
+		
+		<many-to-one ref="One" name="one" />
 	</entity>
 </domain-models>

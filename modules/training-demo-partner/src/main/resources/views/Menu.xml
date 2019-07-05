@@ -13,8 +13,16 @@
 		model="com.axelor.partner.db.Partner">
 		<view type="cards" name="partner-card" />
 		<view type="form" name="partner-form" />
-		<view type="kanban" name="partner-kanban"/>
+		<view type="kanban" name="partner-kanban" />
 		<context name="json-enhance" expr="true" />
+	</action-view>
+	
+	<menuitem name="menu-partner-all-tree" parent="menu-partners"
+		title="All Partner(tree)" action="partner-tree.all" tag-style="default"
+		tag="Tree" />
+	<action-view name="partner-tree.all" title="All Partners(tree)"
+		model="com.axelor.partner.db.Partner">
+		<view type="tree" name="partner-tree" />
 	</action-view>
 
 	<menuitem name="menu-catagory-all" parent="menu-partners"
@@ -34,11 +42,18 @@
 		<view type="form" name="company-form" />
 	</action-view>
 
-	<menuitem name="menu-everything-kanban" parent="menu-partners"
-		title="Everything" action="everything.show" icon-background="purple" />
-	<action-view name="everything.show" title="Everything">
-		<view type="kanban" name="kanban-view" />
-		<view type="form" name="partner-form"/>
+	<menuitem name="menu-one-all" parent="menu-partners"
+		title="Time period" action="one.all" icon-background="purple" />
+	<action-view name="one.all" title="Time Periods" model="com.axelor.partner.db.One">
+		<view type="grid" name="one-grid" />
+		<view type="form" name="one-form"/>
+	</action-view>
+
+	<menuitem name="menu-two-all" parent="menu-partners"
+		title="Minimum Periods" action="two.all" icon-background="white" />
+	<action-view name="two.all" title="Minimum Period" model="com.axelor.partner.db.Two">
+		<view type="grid" name="two-grid" />
+		<view type="form" name="two-form" />
 	</action-view>
 
 </object-views>

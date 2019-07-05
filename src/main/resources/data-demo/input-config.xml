@@ -37,47 +37,11 @@
     </bind>
   </input>
 
-<!--   <input file="contacts.xml" root="address-book">
-    <bind node="title" type="com.axelor.contact.db.Title" search="self.code = :code">
-      <bind node="@code" to="code" />
-      <bind node="@name" to="name" />
-    </bind>
-    <bind node="country" type="com.axelor.contact.db.Country" search="self.code = :code">
-      <bind node="@code" to="code" />
-      <bind node="@name" to="name" />
-    </bind>
-    <bind node="company" type="com.axelor.contact.db.Company" search="self.code = :code">
-      <bind node="@code" to="code" />
-      <bind node="@name" to="name" />
-      <bind to="parent" search="self.code = :parent" />
-    </bind>
-    <bind node="circle" type="com.axelor.contact.db.Circle" search="self.code = :code">
-      <bind node="@code" to="code" />
-      <bind node="@name" to="name" />
-    </bind>
-    <bind node="contact" type="com.axelor.contact.db.Contact" search="self.emails[].email = :_email">
-      <bind node="@title" to="title" search="self.code = :title" />
-      <bind node="first-name" to="firstName" />
-      <bind node="last-name" to="lastName" />
-      <bind node="email" to="_email" /> context variable
-      <bind node="email" to="emails">
-        <bind to="primary" eval="true" />
-        <bind node="text()" to="email" />
-      </bind>
-      <bind node="phone" to="phones">
-        <bind to="primary" eval="true" />
-        <bind to="phoneType" eval="'Mobile'" />
-        <bind node="text()" to="phone" />
-      </bind>
-      <bind node="addresses/address" to="addresses">
-        <bind node="street1" to="street" />
-        <bind node="street2" to="area" />
-        <bind node="city" to="city" />
-        <bind to="country_code" node="country"/>
-        <bind to="country" search="self.code = :country_code"/>
-      </bind>
-    </bind>
-  </input> -->
+ <input root="ones" file="one.xml">
+ 	<bind node="one" type="com.axelor.partner.db.One">
+ 		<bind node="@period" to="period"/>
+ 	</bind>
+ </input>
 
 
 </xml-inputs>

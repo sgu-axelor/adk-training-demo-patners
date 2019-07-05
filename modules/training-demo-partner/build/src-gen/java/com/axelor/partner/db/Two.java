@@ -1,7 +1,5 @@
 package com.axelor.partner.db;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Basic;
@@ -13,7 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Index;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,13 +21,12 @@ import org.hibernate.annotations.Type;
 
 import com.axelor.auth.db.AuditableModel;
 import com.axelor.db.annotations.HashKey;
-import com.axelor.db.annotations.NameColumn;
 import com.axelor.db.annotations.Widget;
 import com.google.common.base.MoreObjects;
 
 @Entity
 @Cacheable
-@Table(name = "PARTNER_TWO")
+@Table(name = "PARTNER_TWO", indexes = { @Index(columnList = "one") })
 public class Two extends AuditableModel {
 
 	@Id
@@ -37,13 +35,16 @@ public class Two extends AuditableModel {
 	private Long id;
 
 	@HashKey
-	@NameColumn
 	@NotNull
 	@Column(unique = true)
-	private String nametwo;
+	private String fullName;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "two", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<One> one;
+	@Widget(selection = "selection-period")
+	@NotNull
+	private Integer minPeriod = 0;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private One one;
 
 	@Widget(title = "Attributes")
 	@Basic(fetch = FetchType.LAZY)
@@ -51,10 +52,6 @@ public class Two extends AuditableModel {
 	private String attrs;
 
 	public Two() {
-	}
-
-	public Two(String nametwo) {
-		this.nametwo = nametwo;
 	}
 
 	@Override
@@ -67,66 +64,28 @@ public class Two extends AuditableModel {
 		this.id = id;
 	}
 
-	public String getNametwo() {
-		return nametwo;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setNametwo(String nametwo) {
-		this.nametwo = nametwo;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public List<One> getOne() {
+	public Integer getMinPeriod() {
+		return minPeriod == null ? 0 : minPeriod;
+	}
+
+	public void setMinPeriod(Integer minPeriod) {
+		this.minPeriod = minPeriod;
+	}
+
+	public One getOne() {
 		return one;
 	}
 
-	public void setOne(List<One> one) {
+	public void setOne(One one) {
 		this.one = one;
-	}
-
-	/**
-	 * Add the given {@link One} item to the {@code one}.
-	 *
-	 * <p>
-	 * It sets {@code item.two = this} to ensure the proper relationship.
-	 * </p>
-	 *
-	 * @param item
-	 *            the item to add
-	 */
-	public void addOne(One item) {
-		if (getOne() == null) {
-			setOne(new ArrayList<>());
-		}
-		getOne().add(item);
-		item.setTwo(this);
-	}
-
-	/**
-	 * Remove the given {@link One} item from the {@code one}.
-	 *
- 	 * @param item
-	 *            the item to remove
-	 */
-	public void removeOne(One item) {
-		if (getOne() == null) {
-			return;
-		}
-		getOne().remove(item);
-	}
-
-	/**
-	 * Clear the {@code one} collection.
-	 *
-	 * <p>
-	 * If you have to query {@link One} records in same transaction, make
-	 * sure to call {@link javax.persistence.EntityManager#flush() } to avoid
-	 * unexpected errors.
-	 * </p>
-	 */
-	public void clearOne() {
-		if (getOne() != null) {
-			getOne().clear();
-		}
 	}
 
 	public String getAttrs() {
@@ -148,21 +107,22 @@ public class Two extends AuditableModel {
 			return Objects.equals(this.getId(), other.getId());
 		}
 
-		if (!Objects.equals(getNametwo(), other.getNametwo())) return false;
+		if (!Objects.equals(getFullName(), other.getFullName())) return false;
 
 		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(84524, this.getNametwo());
+		return Objects.hash(84524, this.getFullName());
 	}
 
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
 			.add("id", getId())
-			.add("nametwo", getNametwo())
+			.add("fullName", getFullName())
+			.add("minPeriod", getMinPeriod())
 			.omitNullValues()
 			.toString();
 	}

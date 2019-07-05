@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.axelor.partner.db.Email;
+import com.axelor.partner.db.One;
 import com.axelor.partner.db.Partner;
+import com.axelor.partner.db.Two;
 import com.axelor.partner.db.repo.EmailRepository;
 import com.axelor.partner.service.Service;
 import com.axelor.rpc.ActionRequest;
@@ -34,10 +36,6 @@ public class DefaultValueClass {
     }
   }
 
-  public void show(ActionRequest req, ActionResponse res) {
-    Partner partner = req.getContext().asType(Partner.class);
-    service.showPatner(partner);
-  }
 
   public void setCompanyAssociationsCount(ActionRequest req, ActionResponse res) {
     Partner partner = req.getContext().asType(Partner.class);
@@ -56,6 +54,10 @@ public class DefaultValueClass {
     partner.setEmail(e);
 
     return partner;
+  }
+  
+  public void showMinPeriod(ActionRequest req, ActionResponse res) {
+    Two two =  req.getContext().asType(Two.class);
   }
 
   /*

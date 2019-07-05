@@ -3,6 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
+	<grid model="com.axelor.partner.db.Partner" title="Partners" name="partner-grid">
+		<field name="FullName"/>
+		<field name="email"/>
+	</grid>
+
 	<cards name="partner-card" model="com.axelor.partner.db.Partner"
 		title="Partners">
 		<field name="fullName" />
@@ -25,6 +30,25 @@
       </div>
     ]]></template>
 	</cards>
+
+	<tree name="partner-tree" title="Partner-Address-Company">
+
+		<!-- define tree columns -->
+		<column name="title" type="string"/>
+		<column name="street" type="string" />
+
+		<!-- define 1st level node -->
+		<node model="com.axelor.partner.db.Partner" onClick="partner.showallpartner.tree">
+			<field name="fullName" as="title" />
+		</node>
+
+		<!-- define 2nd level node -->
+		<node model="com.axelor.partner.db.Address" parent="partner" onClick="partner.showalladdress.tree"
+			draggable="true" >
+			<field name="street" as="street" />
+		</node>
+
+	</tree>
 
 	<kanban name="partner-kanban" sequenceBy="companyassociations"
 		model="com.axelor.partner.db.Partner" columnBy="agreementPeriod"
@@ -57,7 +81,7 @@
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
 		name="partner-form" onSave="action-group-onsave"
-		onNew="default-fname,action-attr-lname-readonly-false" >
+		onNew="default-fname,action-attr-lname-readonly-false">
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
@@ -103,6 +127,22 @@
 			<field name="startdate" onChange="validate-startdate"></field>
 		</panel>
 	</form>
+	
+	<action-view name="partner.showallpartner.tree" title="Patners" model="com.axelor.partner.db.Partner">
+		<view type="grid" name="partner-grid" />
+		<view type="form" name="partner-form" />
+		<domain>self.id = :partner_id</domain>
+		<context name="partner_id" expr="eval: id"/>
+		<context name="_showSingle" expr="true"/>
+	</action-view>
+
+	<action-view name="partner.showalladdress.tree" title="Address" model="com.axelor.partner.db.Address">
+		<view type="grid" name="address-grid"/>
+		<view type="form" name="address-form"/>
+		<domain>self.id = :project_id</domain>
+		<context name="project_id" expr="eval: id"/>
+		<context name="_showSingle" expr="true"/>
+	</action-view>
 
 	<action-record name="default-fname"
 		model="com.axelor.partner.db.Partner">
@@ -111,7 +151,6 @@
 
 	<action-group name="action-group-onsave">
 		<action name="alert-valid-action" />
-		<action name="action-show-patner-guice" />
 		<action name="default-email" />
 		<action name="action-setcompanyassociations" />
 	</action-group>
@@ -137,11 +176,6 @@
 	<action-method name="default-email">
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="setDefaultEmail" />
-	</action-method>
-
-	<action-method name="action-show-patner-guice">
-		<call class="com.axelor.partner.web.DefaultValueClass"
-			method="show" />
 	</action-method>
 
 	<action-attrs name="action-attr-lname-readonly-false">
