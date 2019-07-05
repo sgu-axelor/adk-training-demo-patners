@@ -81,11 +81,13 @@
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
 		name="partner-form" onSave="action-group-onsave"
-		onNew="default-fname,action-attr-lname-readonly-false">
+		onNew="default-fname,action-attr-lname-readonly-false" onLoad="action-export-on">
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
-
+		<panel sidebar="true">
+			<button name="btexport" icon="fa-download" title="Export" onClick="action-export" readonly="true"/>
+		</panel>
 		<panel title="Personal">
 			<field name="fullName" title="Name" readonly="false"
 				colSpan="12">
@@ -154,6 +156,10 @@
 		<action name="default-email" />
 		<action name="action-setcompanyassociations" />
 	</action-group>
+	
+	<action-attrs name="action-export-on">
+		<attribute for="btexport" name="readonly" expr="false"/>
+	</action-attrs>
 
 	<action-validate name="alert-valid-action">
 		<alert
@@ -191,6 +197,10 @@
 		<attribute name="value" for="startdate"
 			expr="eval: __date__" />
 	</action-attrs>
+	
+	<action-method name="action-export">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="exportPatner"/>
+	</action-method>
 	<!-- <action-script name="set-default-date" model="com.axelor.partner.db.Partner"> 
 		<script language="js"> <![CDATA[[ var req = $request; var res = $response; 
 		res.setValue('startdate', __date__); ]]> </script> </action-script> -->

@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://axelor.com/xml/ns/data-import http://axelor.com/xml/ns/data-import/data-import_5.0.xsd">
 
   <input file="partner.xml" root="partners" >
-    <bind node="partner" type="com.axelor.partner.db.Partner" call="com.axelor.partner.web.DefaultValueClass:savePartner">
+    <bind node="partner" type="com.axelor.partner.db.Partner" call="com.axelor.partner.web.DefaultValueClass:savePartnerImportXml">
       <bind node="@firstName" to="firstName" />
       <bind node="@lastName" to="lastName" />
       

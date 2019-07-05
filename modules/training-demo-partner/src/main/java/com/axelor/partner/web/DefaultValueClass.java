@@ -1,13 +1,12 @@
 package com.axelor.partner.web;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
+import com.axelor.partner.db.Company;
 import com.axelor.partner.db.Email;
-import com.axelor.partner.db.One;
 import com.axelor.partner.db.Partner;
 import com.axelor.partner.db.Two;
 import com.axelor.partner.db.repo.EmailRepository;
@@ -15,8 +14,7 @@ import com.axelor.partner.service.Service;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.persist.Transactional;
+import com.opencsv.CSVWriter;
 
 public class DefaultValueClass {
 
@@ -36,14 +34,13 @@ public class DefaultValueClass {
     }
   }
 
-
   public void setCompanyAssociationsCount(ActionRequest req, ActionResponse res) {
     Partner partner = req.getContext().asType(Partner.class);
     if (partner.getCompany().size() > 0)
       res.setAttr("companyassociations", "value", partner.getCompany().size());
   }
 
-  public Partner savePartner(Object bean, Map context) {
+  public Partner savePartnerImportXml(Object bean, Map context) {
     Partner partner = (Partner) bean;
     HashMap<?, ?> email = (HashMap<?, ?>) context.get("email");
     Email e = emailrepo.all().filter("self.emailId= '" + email.get("emailId") + "'").fetchOne();
@@ -55,19 +52,53 @@ public class DefaultValueClass {
 
     return partner;
   }
-  
+
   public void showMinPeriod(ActionRequest req, ActionResponse res) {
-    Two two =  req.getContext().asType(Two.class);
+    Two two = req.getContext().asType(Two.class);
   }
 
   /*
-   * public Partner savePartner(Object bean, Map context) { Partner partner = (Partner) bean; Email
-   * e = emailrepo.all().filter("self.emailId= '" + context.get("email") + "'").fetchOne();
+   * public Partner savePartnerImportCsv(Object bean, Map context) { Partner partner = (Partner)
+   * bean; Email e = emailrepo.all().filter("self.emailId= '" + context.get("email") +
+   * "'").fetchOne();
    * 
    * if (e == null) e = new Email((String) context.get("email")); else e = null;
    * partner.setEmail(e);
    * 
    * return partner; }
    */
+
+  public void exportPatner(ActionRequest req, ActionResponse res) {
+    Partner partner = req.getContext().asType(Partner.class);
+    System.err.println("incoming");
+    String filepath =
+        "/home/axelor/Projects/training/ADK/training-demo/src/main/resources/data-demo/"
+            + partner.getFirstName()
+            + ".csv";
+    File file = new File(filepath);
+    try {
+
+      CSVWriter writer = new CSVWriter(new FileWriter(file));
+
+      String[] header =
+          {"firstName", "lastName", "email", "startdate", "agreementperiod", "company"};
+      writer.writeNext(header);
+      String company="";
+      for(Company c :partner.getCompany()) {
+        company+=c.getName()+"|";
+      }
+      
+      String[] data = {
+        partner.getFirstName(), partner.getLastName(), partner.getEmail().getEmailId(),
+        String.valueOf(partner.getStartdate()), String.valueOf(partner.getAgreementPeriod()),company};
+      writer.writeNext(data);
+      System.err.println("writting");
+      System.err.println(filepath);
+      writer.close();
+    } catch (Exception e) {
+      System.err.println(e);
+    }
+
+  }
 
 }

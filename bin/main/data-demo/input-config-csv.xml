@@ -8,7 +8,7 @@
 	<input file="company.csv" type="com.axelor.partner.db.Company" />
 <!-- 	<input file="email.csv" type="com.axelor.partner.db.Email" /> -->
 
-	<input file="partner.csv" type="com.axelor.partner.db.Partner" search="self.firstName=:firstName" call="com.axelor.partner.web.DefaultValueClass:savePartner">  
+	<input file="partner.csv" type="com.axelor.partner.db.Partner" search="self.firstName=:firstName" call="com.axelor.partner.web.DefaultValueClass:savePartnerImportCsv">  
 		<bind to="firstName" column="firstName" />
 		<bind to="lastName" column="lastName" />
 		<bind to="agreementPeriod" column="agreementPeriod" />
