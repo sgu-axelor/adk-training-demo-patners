@@ -36,12 +36,15 @@ public class DefaultValueClass {
 
   public void setCompanyAssociationsCount(ActionRequest req, ActionResponse res) {
     Partner partner = req.getContext().asType(Partner.class);
-    if (partner.getCompany().size() > 0)
+    if (partner.getCompany()!=null)
       res.setAttr("companyassociations", "value", partner.getCompany().size());
   }
 
   public Partner savePartnerImportXml(Object bean, Map context) {
     Partner partner = (Partner) bean;
+    System.err.println("Partner: "+partner);
+    System.out.println();
+    System.err.println("Context: "+context);
     HashMap<?, ?> email = (HashMap<?, ?>) context.get("email");
     Email e = emailrepo.all().filter("self.emailId= '" + email.get("emailId") + "'").fetchOne();
 

@@ -3,9 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid model="com.axelor.partner.db.Partner" title="Partners" name="partner-grid">
-		<field name="FullName"/>
-		<field name="email"/>
+	<grid model="com.axelor.partner.db.Partner" title="Partners"
+		name="partner-grid">
+		<field name="FullName" />
+		<field name="email" />
 	</grid>
 
 	<cards name="partner-card" model="com.axelor.partner.db.Partner"
@@ -34,17 +35,18 @@
 	<tree name="partner-tree" title="Partner-Address-Company">
 
 		<!-- define tree columns -->
-		<column name="title" type="string"/>
+		<column name="title" type="string" />
 		<column name="street" type="string" />
 
 		<!-- define 1st level node -->
-		<node model="com.axelor.partner.db.Partner" onClick="partner.showallpartner.tree">
+		<node model="com.axelor.partner.db.Partner"
+			onClick="partner.showallpartner.tree">
 			<field name="fullName" as="title" />
 		</node>
 
 		<!-- define 2nd level node -->
-		<node model="com.axelor.partner.db.Address" parent="partner" onClick="partner.showalladdress.tree"
-			draggable="true" >
+		<node model="com.axelor.partner.db.Address" parent="partner"
+			onClick="partner.showalladdress.tree" draggable="true">
 			<field name="street" as="street" />
 		</node>
 
@@ -81,12 +83,14 @@
 
 	<form model="com.axelor.partner.db.Partner" title="Partner"
 		name="partner-form" onSave="action-group-onsave"
-		onNew="default-fname,action-attr-lname-readonly-false" onLoad="action-export-on">
+		onNew="default-fname,action-attr-lname-readonly-false"
+		onLoad="action-export-on">
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
 		<panel sidebar="true">
-			<button name="btexport" icon="fa-download" title="Export" onClick="action-export" readonly="true"/>
+			<button name="btexport" icon="fa-download" title="Export"
+				onClick="action-export-xml" readonly="true" />
 		</panel>
 		<panel title="Personal">
 			<field name="fullName" title="Name" readonly="false"
@@ -129,21 +133,23 @@
 			<field name="startdate" onChange="validate-startdate"></field>
 		</panel>
 	</form>
-	
-	<action-view name="partner.showallpartner.tree" title="Patners" model="com.axelor.partner.db.Partner">
+
+	<action-view name="partner.showallpartner.tree"
+		title="Patners" model="com.axelor.partner.db.Partner">
 		<view type="grid" name="partner-grid" />
 		<view type="form" name="partner-form" />
 		<domain>self.id = :partner_id</domain>
-		<context name="partner_id" expr="eval: id"/>
-		<context name="_showSingle" expr="true"/>
+		<context name="partner_id" expr="eval: id" />
+		<context name="_showSingle" expr="true" />
 	</action-view>
 
-	<action-view name="partner.showalladdress.tree" title="Address" model="com.axelor.partner.db.Address">
-		<view type="grid" name="address-grid"/>
-		<view type="form" name="address-form"/>
+	<action-view name="partner.showalladdress.tree"
+		title="Address" model="com.axelor.partner.db.Address">
+		<view type="grid" name="address-grid" />
+		<view type="form" name="address-form" />
 		<domain>self.id = :project_id</domain>
-		<context name="project_id" expr="eval: id"/>
-		<context name="_showSingle" expr="true"/>
+		<context name="project_id" expr="eval: id" />
+		<context name="_showSingle" expr="true" />
 	</action-view>
 
 	<action-record name="default-fname"
@@ -154,11 +160,11 @@
 	<action-group name="action-group-onsave">
 		<action name="alert-valid-action" />
 		<action name="default-email" />
-		<action name="action-setcompanyassociations" />
+		<action name="action-setcompanyassociations" if="company!=null"/>
 	</action-group>
-	
+
 	<action-attrs name="action-export-on">
-		<attribute for="btexport" name="readonly" expr="false"/>
+		<attribute for="btexport" name="readonly" expr="false" />
 	</action-attrs>
 
 	<action-validate name="alert-valid-action">
@@ -197,10 +203,15 @@
 		<attribute name="value" for="startdate"
 			expr="eval: __date__" />
 	</action-attrs>
-	
-	<action-method name="action-export">
-		<call class="com.axelor.partner.web.DefaultValueClass" method="exportPatner"/>
+
+	<action-method name="action-export-csv">
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="exportPatner" />
 	</action-method>
+	<action-export name="action-export-xml" download="true">
+		<export name="Shivank.xml"
+			template="data-export/export-partner.st" />
+	</action-export>
 	<!-- <action-script name="set-default-date" model="com.axelor.partner.db.Partner"> 
 		<script language="js"> <![CDATA[[ var req = $request; var res = $response; 
 		res.setValue('startdate', __date__); ]]> </script> </action-script> -->

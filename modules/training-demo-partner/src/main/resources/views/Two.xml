@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<grid model="com.axelor.partner.db.Two" title="AllManyFields"
+		name="two-grid">
+		<field name="fullName" />
+	</grid>
+
+	<selection name="selection-period">
+		<option value="5"> 5 Years</option>
+		<option value="10"> 10 Years</option>
+		<option value="15"> 15 Years</option>
+	</selection>
+
+	<form model="com.axelor.partner.db.Two" title="Form View"
+		name="two-form">
+		<panel>
+			<field name="fullName" canRemove="true" />
+			<field name="minPeriod" title="Minimum Time Duration" selection="selection-period" />
+		</panel>
+		<panel title="Time Duration">
+			<field name="one" grid-view="one-grid"
+				domain="self.period like :minPeriod" >
+			</field>
+		</panel>
+	</form>
+
+
+</object-views>

@@ -4,15 +4,12 @@ import java.util.Objects;
 
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,16 +24,13 @@ import com.google.common.base.MoreObjects;
 
 @Entity
 @Cacheable
-@Table(name = "PARTNER_EMAIL", indexes = { @Index(columnList = "partner") })
+@Table(name = "PARTNER_EMAIL")
 public class Email extends AuditableModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARTNER_EMAIL_SEQ")
 	@SequenceGenerator(name = "PARTNER_EMAIL_SEQ", sequenceName = "PARTNER_EMAIL_SEQ", allocationSize = 1)
 	private Long id;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private Partner partner;
 
 	@HashKey
 	@NameColumn
@@ -64,14 +58,6 @@ public class Email extends AuditableModel {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Partner getPartner() {
-		return partner;
-	}
-
-	public void setPartner(Partner partner) {
-		this.partner = partner;
 	}
 
 	public String getEmailId() {

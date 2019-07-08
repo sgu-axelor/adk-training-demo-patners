@@ -16,6 +16,14 @@
 		<view type="kanban" name="partner-kanban" />
 		<context name="json-enhance" expr="true" />
 	</action-view>
+	
+	<menuitem name="menu-partner-all-tree" parent="menu-partners"
+		title="All Partner(tree)" action="partner-tree.all" tag-style="default"
+		tag="Tree" />
+	<action-view name="partner-tree.all" title="All Partners(tree)"
+		model="com.axelor.partner.db.Partner">
+		<view type="tree" name="partner-tree" />
+	</action-view>
 
 	<menuitem name="menu-catagory-all" parent="menu-partners"
 		title="All Catagory" action="catagory.all" tag-style="warning"

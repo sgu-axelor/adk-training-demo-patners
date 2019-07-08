@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ones xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<one period="6"/>
+	<one period="8"/>
+	<one period="10"/>
+	<one period="12"/>
+	<one period="15"/>
+	<one period="18"/>
+	<one period="20"/>
+	<one period="25"/>
+	
+</ones>

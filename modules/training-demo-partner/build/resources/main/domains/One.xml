@@ -8,7 +8,7 @@
 
 	<entity name="One" cachable="true">
 	
-		<string name="period"  namecolumn="true"/>
+		<string name="period" namecolumn="true"/>
 		<one-to-many name="two" ref="Two" mappedBy="one"/>
 	</entity>
 </domain-models>
