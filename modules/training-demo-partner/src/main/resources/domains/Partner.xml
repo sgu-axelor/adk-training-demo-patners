@@ -23,7 +23,7 @@
 		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" ></date>
 		
 		<one-to-many name="addresses" ref="Address" mappedBy="partner" />
-		<one-to-one name="email" ref="com.axelor.partner.db.Email"/>
+		<one-to-one name="email" ref="Email"/>
 		
 		<many-to-many name="company" ref="Company" />
 		

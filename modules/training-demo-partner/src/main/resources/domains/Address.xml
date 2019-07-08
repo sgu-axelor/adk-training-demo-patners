@@ -6,7 +6,7 @@
 
 	<module name="partner" package="com.axelor.partner.db" />
 
-	<entity name="Address" cachable="true">
+	<entity name="Address" cachable="true" sequential="true">
 		<many-to-one name="partner" ref="Partner" />
 		
 		<string name="street" required="true" max="255"

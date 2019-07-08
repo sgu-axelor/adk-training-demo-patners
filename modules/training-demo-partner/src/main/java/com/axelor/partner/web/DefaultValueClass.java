@@ -2,14 +2,11 @@ package com.axelor.partner.web;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.axelor.partner.db.Company;
 import com.axelor.partner.db.Email;
 import com.axelor.partner.db.Partner;
 import com.axelor.partner.db.Two;
-import com.axelor.partner.db.repo.EmailRepository;
 import com.axelor.partner.service.Service;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
@@ -20,8 +17,9 @@ public class DefaultValueClass {
 
   @Inject
   Service service;
-  @Inject
-  EmailRepository emailrepo;
+	/*
+	 * @Inject EmailRepository emailrepo;
+	 */
 
   public void setDefaultEmail(ActionRequest req, ActionResponse res) {
     Partner partner = req.getContext().asType(Partner.class);
@@ -40,22 +38,19 @@ public class DefaultValueClass {
       res.setAttr("companyassociations", "value", partner.getCompany().size());
   }
 
-  public Partner savePartnerImportXml(Object bean, Map context) {
-    Partner partner = (Partner) bean;
-    System.err.println("Partner: "+partner);
-    System.out.println();
-    System.err.println("Context: "+context);
-    HashMap<?, ?> email = (HashMap<?, ?>) context.get("email");
-    Email e = emailrepo.all().filter("self.emailId= '" + email.get("emailId") + "'").fetchOne();
-
-    if (e == null) e = new Email((String) email.get("emailId"));
-    else
-      e = null;
-    partner.setEmail(e);
-
-    return partner;
-  }
-
+	/*
+	 * public Partner savePartnerImportXml(Object bean, Map context) { Partner
+	 * partner = (Partner) bean; System.err.println("Partner: "+partner);
+	 * System.out.println(); System.err.println("Context: "+context); HashMap<?, ?>
+	 * email = (HashMap<?, ?>) context.get("email"); Email e =
+	 * emailrepo.all().filter("self.emailId= '" + email.get("emailId") +
+	 * "'").fetchOne();
+	 * 
+	 * if (e == null) e = new Email((String) email.get("emailId")); else e = null;
+	 * partner.setEmail(e);
+	 * 
+	 * return partner; }
+	 */
   public void showMinPeriod(ActionRequest req, ActionResponse res) {
     Two two = req.getContext().asType(Two.class);
   }
