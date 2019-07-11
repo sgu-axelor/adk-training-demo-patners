@@ -85,6 +85,10 @@
 		name="partner-form" onSave="action-group-onsave"
 		onNew="default-fname,action-attr-lname-readonly-false"
 		onLoad="action-export-on">
+		<toolbar>
+			<button name="show" onClick="action-show-partner-company"
+				icon="fa-file-pdf-o" />
+		</toolbar>
 		<panel sidebar="true" colSpan="4" title="Photo">
 			<field name="image" showTitle="false" colSpan="12" />
 		</panel>
@@ -160,7 +164,7 @@
 	<action-group name="action-group-onsave">
 		<action name="alert-valid-action" />
 		<action name="default-email" />
-		<action name="action-setcompanyassociations" if="company!=null"/>
+		<action name="action-setcompanyassociations" if="company!=null" />
 	</action-group>
 
 	<action-attrs name="action-export-on">
@@ -208,11 +212,14 @@
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="exportPatner" />
 	</action-method>
-	<action-export name="action-export-xml" download="true">
-		<export name="Shivank.xml"
-			template="data-export/export-partner.st" />
+	<action-export name="action-export-xml"
+		output="${fullName}-${date}">
+		<export name="${fullName}.xml"
+			template="data-export/exort-partner-groovy.tmpl" engine="groovy" />
 	</action-export>
-	<!-- <action-script name="set-default-date" model="com.axelor.partner.db.Partner"> 
-		<script language="js"> <![CDATA[[ var req = $request; var res = $response; 
-		res.setValue('startdate', __date__); ]]> </script> </action-script> -->
+
+	<action-report output="Companies"
+		name="action-show-partner-company" design="company.rptdesign">
+		<param name="ids" expr="eval: id" />
+	</action-report>
 </object-views>

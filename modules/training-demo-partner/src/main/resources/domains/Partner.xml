@@ -19,11 +19,11 @@
     			]]>
 		</string>
 		
-		<binary name="image" image="true" />
-		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" ></date>
+		<many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Image"/>
+		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" />
 		
 		<one-to-many name="addresses" ref="Address" mappedBy="partner" />
-		<one-to-one name="email" ref="Email"/>
+		<one-to-one name="email" ref="Email" mappedBy="partner"/>
 		
 		<many-to-many name="company" ref="Company" />
 		

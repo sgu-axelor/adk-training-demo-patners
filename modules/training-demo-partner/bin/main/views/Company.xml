@@ -3,10 +3,32 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
+	<form model="com.axelor.partner.db.Company" title="Company"
+		name="company-form">
+		<toolbar>
+			<button name="show" onClick="action-show-company"
+				icon="fa-file-pdf-o" />
+		</toolbar>
+		<panel>
+			<field name="name" bgColor="blue" />
+		</panel>
+	</form>
+
 	<grid model="com.axelor.partner.db.Company" title="Companies"
-		name="company-grid" canDelete="true" canEdit="true" edit-icon="false"  >
-		<field name="name"></field>
-		<button name="btexport" icon="fa-download" title="Export" />
+		name="company-grid" canDelete="true" canEdit="true" width="mid">
+		<toolbar>
+			<button name="show" onClick="action-set-params,action-show-company"		
+				icon="fa-file-pdf-o" />
+		</toolbar>
+		<field name="name" title="Name" />
 	</grid>
 
+	<action-method name="action-set-params">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="setContext"/>
+	</action-method>
+	
+	<action-report output="Companies"
+		name="action-show-company" design="company.rptdesign">
+		<param name="ids" expr="eval: _ids.join(',') "/>
+	</action-report>
 </object-views>

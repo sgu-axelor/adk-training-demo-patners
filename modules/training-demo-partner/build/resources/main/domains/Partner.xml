@@ -19,7 +19,7 @@
     			]]>
 		</string>
 		
-		<binary name="image" image="true" />
+		<many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Image"/>
 		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" ></date>
 		
 		<one-to-many name="addresses" ref="Address" mappedBy="partner" />

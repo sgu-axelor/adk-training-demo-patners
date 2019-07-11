@@ -18,8 +18,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -36,13 +36,14 @@ import com.axelor.auth.db.AuditableModel;
 import com.axelor.db.annotations.NameColumn;
 import com.axelor.db.annotations.VirtualColumn;
 import com.axelor.db.annotations.Widget;
+import com.axelor.meta.db.MetaFile;
 import com.google.common.base.MoreObjects;
 
 @Entity
 @Cacheable
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "PARTNER_PARTNER", indexes = { @Index(columnList = "fullName"), @Index(columnList = "email") })
+@Table(name = "PARTNER_PARTNER", indexes = { @Index(columnList = "fullName"), @Index(columnList = "image"), @Index(columnList = "email") })
 public class Partner extends AuditableModel {
 
 	@Id
@@ -65,10 +66,9 @@ public class Partner extends AuditableModel {
 	@Access(AccessType.PROPERTY)
 	private String fullName;
 
-	@Widget(image = true)
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] image;
+	@Widget(title = "Image")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private MetaFile image;
 
 	@Widget(title = "Partnered On", help = "Date on which Patner is registered")
 	@NotNull
@@ -152,11 +152,11 @@ public class Partner extends AuditableModel {
 		this.fullName = fullName;
 	}
 
-	public byte[] getImage() {
+	public MetaFile getImage() {
 		return image;
 	}
 
-	public void setImage(byte[] image) {
+	public void setImage(MetaFile image) {
 		this.image = image;
 	}
 

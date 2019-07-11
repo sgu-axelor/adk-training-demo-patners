@@ -13,6 +13,7 @@
 		model="com.axelor.partner.db.Partner">
 		<view type="cards" name="partner-card" />
 		<view type="form" name="partner-form" />
+		<view type="grid" name="partner-grid"/>
 		<view type="kanban" name="partner-kanban" />
 		<context name="json-enhance" expr="true" />
 	</action-view>
