@@ -17,19 +17,18 @@
 	<grid model="com.axelor.partner.db.Company" title="Companies"
 		name="company-grid" canDelete="true" canEdit="true" width="mid">
 		<toolbar>
-			<button name="show" onClick="action-actionrequest-check"		
+			<button name="show" onClick="action-set-params,action-show-company"		
 				icon="fa-file-pdf-o" />
 		</toolbar>
 		<field name="name" title="Name" />
 	</grid>
 
-	<action-method name="action-actionrequest-check">
-		<call class="com.axelor.partner.web.DefaultValueClass"
-			method="showCompanyReport" />
+	<action-method name="action-set-params">
+		<call class="com.axelor.partner.web.DefaultValueClass" method="setContext"/>
 	</action-method>
-
+	
 	<action-report output="Companies"
 		name="action-show-company" design="company.rptdesign">
-		<param name="ids" expr="eval: ids" />
+		<param name="ids" expr="eval: _ids.join(',') "/>
 	</action-report>
 </object-views>

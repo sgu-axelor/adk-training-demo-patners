@@ -6,8 +6,7 @@
 	<grid model="com.axelor.partner.db.Partner" title="Partners"
 		name="partner-grid">
 		<toolbar>
-			<button name="show"
-				onClick="action-show-partners"
+			<button name="show" onClick="action-show-partners"
 				icon="fa-file-pdf-o" />
 		</toolbar>
 		<field name="fullName" />
@@ -114,7 +113,7 @@
 		</panel>
 
 		<panel title="Contacts">
-			<field name="email" canSelect="false" domain="self.email=email">
+			<field name="email" canSelect="false" domain="self.email= :email">
 				<editor layout="table"><!-- x-show-titles="false" -->
 					<field name="emailId" />
 				</editor>
@@ -236,9 +235,10 @@
 		<param name="ids" expr="eval: id" />
 		<param name="Attachments" expr="eval: Attachments" />
 	</action-report>
-	
+
 	<action-report output="Partners"
 		name="action-show-partners" design="partners.rptdesign">
-		<param name="ids" expr="eval: _ids.join(',')" />
+		<param name="ids" expr="eval: _ids.join(',') " />
+		<param name="locale" expr="locale"/>
 	</action-report>
 </object-views>

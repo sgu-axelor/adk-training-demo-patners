@@ -6,8 +6,8 @@
 
 	<module name="partner" package="com.axelor.partner.db" />
 
-	<entity name="Email" cachable="true"  sequential="true">		
-		<string name="emailId" required="true" unique="true" initParam="true"
+	<entity name="Email" cachable="true"  sequential="true">	
+		<string name="emailId" required="true" unique="true" 
 			namecolumn="true" />
 	</entity>
 

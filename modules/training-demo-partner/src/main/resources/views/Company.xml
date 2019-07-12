@@ -17,15 +17,15 @@
 	<grid model="com.axelor.partner.db.Company" title="Companies"
 		name="company-grid" canDelete="true" canEdit="true" width="mid">
 		<toolbar>
-			<button name="show" onClick="action-set-params,action-show-company"		
+			<button name="show" onClick="action-show-company"		
 				icon="fa-file-pdf-o" />
 		</toolbar>
 		<field name="name" title="Name" />
 	</grid>
 
-	<action-method name="action-set-params">
+<!-- 	<action-method name="action-set-params">
 		<call class="com.axelor.partner.web.DefaultValueClass" method="setContext"/>
-	</action-method>
+	</action-method> -->
 	
 	<action-report output="Companies"
 		name="action-show-company" design="company.rptdesign">

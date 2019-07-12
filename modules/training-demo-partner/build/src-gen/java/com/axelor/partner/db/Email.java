@@ -46,10 +46,6 @@ public class Email extends AuditableModel {
 	public Email() {
 	}
 
-	public Email(String emailId) {
-		this.emailId = emailId;
-	}
-
 	@Override
 	public Long getId() {
 		return id;

@@ -80,6 +80,9 @@ public class Partner extends AuditableModel {
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Email email;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderLine> orders;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Set<Company> company;
 
@@ -233,6 +236,60 @@ public class Partner extends AuditableModel {
 
 	public void setEmail(Email email) {
 		this.email = email;
+	}
+
+	public List<OrderLine> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderLine> orders) {
+		this.orders = orders;
+	}
+
+	/**
+	 * Add the given {@link OrderLine} item to the {@code orders}.
+	 *
+	 * <p>
+	 * It sets {@code item.partner = this} to ensure the proper relationship.
+	 * </p>
+	 *
+	 * @param item
+	 *            the item to add
+	 */
+	public void addOrder(OrderLine item) {
+		if (getOrders() == null) {
+			setOrders(new ArrayList<>());
+		}
+		getOrders().add(item);
+		item.setPartner(this);
+	}
+
+	/**
+	 * Remove the given {@link OrderLine} item from the {@code orders}.
+	 *
+ 	 * @param item
+	 *            the item to remove
+	 */
+	public void removeOrder(OrderLine item) {
+		if (getOrders() == null) {
+			return;
+		}
+		getOrders().remove(item);
+	}
+
+	/**
+	 * Clear the {@code orders} collection.
+	 *
+	 * <p>
+	 * If you have to query {@link OrderLine} records in same transaction, make
+	 * sure to call {@link javax.persistence.EntityManager#flush() } to avoid
+	 * unexpected errors.
+	 * </p>
+	 */
+	public void clearOrders() {
+		if (getOrders() != null) {
+			getOrders().clear();
+		}
 	}
 
 	public Set<Company> getCompany() {

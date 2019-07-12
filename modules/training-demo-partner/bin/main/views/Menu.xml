@@ -13,16 +13,16 @@
 		model="com.axelor.partner.db.Partner">
 		<view type="cards" name="partner-card" />
 		<view type="form" name="partner-form" />
-		<view type="grid" name="partner-grid"/>
+		<view type="grid" name="partner-grid" />
 		<view type="kanban" name="partner-kanban" />
 		<context name="json-enhance" expr="true" />
 	</action-view>
-	
+
 	<menuitem name="menu-partner-all-tree" parent="menu-partners"
-		title="All Partner(tree)" action="partner-tree.all" tag-style="default"
-		tag="Tree" />
-	<action-view name="partner-tree.all" title="All Partners(tree)"
-		model="com.axelor.partner.db.Partner">
+		title="All Partner(tree)" action="partner-tree.all"
+		tag-style="default" tag="Tree" />
+	<action-view name="partner-tree.all"
+		title="All Partners(tree)" model="com.axelor.partner.db.Partner">
 		<view type="tree" name="partner-tree" />
 	</action-view>
 
@@ -45,16 +45,27 @@
 
 	<menuitem name="menu-one-all" parent="menu-partners"
 		title="Time period" action="one.all" icon-background="purple" />
-	<action-view name="one.all" title="Time Periods" model="com.axelor.partner.db.One">
+	<action-view name="one.all" title="Time Periods"
+		model="com.axelor.partner.db.One">
 		<view type="grid" name="one-grid" />
-		<view type="form" name="one-form"/>
+		<view type="form" name="one-form" />
 	</action-view>
 
 	<menuitem name="menu-two-all" parent="menu-partners"
 		title="Minimum Periods" action="two.all" icon-background="white" />
-	<action-view name="two.all" title="Minimum Period" model="com.axelor.partner.db.Two">
+	<action-view name="two.all" title="Minimum Period"
+		model="com.axelor.partner.db.Two">
 		<view type="grid" name="two-grid" />
 		<view type="form" name="two-form" />
+	</action-view>
+
+	<menuitem title="Orders" name="menu-orders"
+		icon-background="red" />
+	
+	<menuitem title="All Orders" name="menu-all-order" action="order.all" parent="menu-orders"/>
+	<action-view name="order.all" title="Orders" model="com.axelor.partner.db.OrderLine">
+		<view type="grid" name="orderline-grid"/>
+		<view type="form" name="orderline-form"/>
 	</action-view>
 
 </object-views>

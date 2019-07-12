@@ -39,11 +39,11 @@ public class DefaultValueClass {
 	public void setDefaultEmail(ActionRequest req, ActionResponse res) {
 		Partner partner = req.getContext().asType(Partner.class);
 		if (partner.getEmail() == null) {
-			Email email = new Email();
+			Email email =  new Email();
 			email.setEmailId(new String(partner.getFirstName() + "." + partner.getLastName() + "@gmail.com"));
-
 			res.setAttr("email", "value", email);
 		}
+
 	}
 
 	public void setCompanyAssociationsCount(ActionRequest req, ActionResponse res) {
@@ -137,5 +137,6 @@ public class DefaultValueClass {
 			req.getContext().put("Attachments", attachmentPath);
 		else 
 			req.getContext().put("Attachments", attachmentPath+"/");
+		req.getContext().put("locale", Locale.getDefault());
 	}
 }

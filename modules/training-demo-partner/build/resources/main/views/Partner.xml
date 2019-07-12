@@ -5,7 +5,11 @@
 
 	<grid model="com.axelor.partner.db.Partner" title="Partners"
 		name="partner-grid">
-		<field name="FullName" />
+		<toolbar>
+			<button name="show" onClick="action-show-partners"
+				icon="fa-file-pdf-o" />
+		</toolbar>
+		<field name="fullName" />
 		<field name="email" />
 	</grid>
 
@@ -86,11 +90,13 @@
 		onNew="default-fname,action-attr-lname-readonly-false"
 		onLoad="action-export-on">
 		<toolbar>
-			<button name="show" onClick="action-show-partner-company"
+			<button name="show"
+				onClick="action-set-parameter,action-show-partner"
 				icon="fa-file-pdf-o" />
 		</toolbar>
 		<panel sidebar="true" colSpan="4" title="Photo">
-			<field name="image" showTitle="false" colSpan="12" />
+			<field name="image" showTitle="false" colSpan="12"
+				widget="image" />
 		</panel>
 		<panel sidebar="true">
 			<button name="btexport" icon="fa-download" title="Export"
@@ -107,7 +113,7 @@
 		</panel>
 
 		<panel title="Contacts">
-			<field name="email" canSelect="false" domain="self.email=email">
+			<field name="email" canSelect="false" domain="self.email= :email">
 				<editor layout="table"><!-- x-show-titles="false" -->
 					<field name="emailId" />
 				</editor>
@@ -212,14 +218,26 @@
 		<call class="com.axelor.partner.web.DefaultValueClass"
 			method="exportPatner" />
 	</action-method>
+
 	<action-export name="action-export-xml"
 		output="${fullName}-${date}">
 		<export name="${fullName}.xml"
 			template="data-export/exort-partner-groovy.tmpl" engine="groovy" />
 	</action-export>
 
-	<action-report output="Companies"
-		name="action-show-partner-company" design="company.rptdesign">
+	<action-method name="action-set-parameter">
+		<call class="com.axelor.partner.web.DefaultValueClass"
+			method="setReportParams" />
+	</action-method>
+
+	<action-report output="Partner"
+		name="action-show-partner" design="partner.rptdesign">
 		<param name="ids" expr="eval: id" />
+		<param name="Attachments" expr="eval: Attachments" />
+	</action-report>
+
+	<action-report output="Partners"
+		name="action-show-partners" design="partners.rptdesign">
+		<param name="ids" expr="eval: _ids.join(',')" />
 	</action-report>
 </object-views>

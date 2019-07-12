@@ -20,11 +20,12 @@
 		</string>
 		
 		<many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Image"/>
-		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" ></date>
+		<date name="startdate" help="Date on which Patner is registered" required="true" title="Partnered On" />
 		
 		<one-to-many name="addresses" ref="Address" mappedBy="partner" />
 		<one-to-one name="email" ref="Email"/>
 		
+		<one-to-many name="orders" ref="OrderLine" mappedBy="partner"/>
 		<many-to-many name="company" ref="Company" />
 		
 		<integer name="companyassociations"></integer>
